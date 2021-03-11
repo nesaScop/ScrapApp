@@ -1,0 +1,121 @@
+html,body {
+  margin: 0; padding: 0;
+  font-family: sans-serif;
+  font-size: 12pt;
+  background: #3b4465;
+}
+* { box-sizing: border-box; outline: none }
+
+/* Styling */
+.label-container { text-align: center }
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+.panel {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  width: 300px;
+  margin: 1em auto;
+  background: #fff;
+  padding: 1em;
+  border-radius: 6px;
+}
+label {
+  display: block;
+  margin: 1em 0 .5em;
+  font-size: 11pt;
+  color: #666;
+}
+input {
+  width: 100%;
+  color: #325a64;
+  padding: .75em .5em;
+  font-size: 12pt;
+  border-radius: 4px;
+  border: 1px solid #cde;
+  background: #eef9fe;
+  transition: border-color .1s;
+  
+  &:focus { border-color: #96afc8; }
+}
+button {
+  cursor: pointer;
+  background: #a7e245;
+  display: block;
+  margin: 1.5em 0 1em auto;
+  padding: .75em 2em;
+  border-radius: 100px;
+  border: 2px solid #a7e245;
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 700;
+  transition: border-color .1s, background .1s;
+  
+  &:focus { border-color: #94c93d; }
+  &:active { background: #94c93d; }
+}
+a {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,.4);
+  text-decoration: none;
+  font-weight: 700;
+  font-family: sans-serif;
+  transition: color .2s;
+  
+  &:hover { color: #fff }
+}
+
+/* Animation / Positioning */
+#login, #signup {
+  z-index: 1;
+  animation: login-in .3s cubic-bezier(0,1.5,.66,1.2) both;
+}
+#signup {
+  animation-name: signup-in;
+}
+
+/* Functionality */
+input.toggle { display: none }
+label.toggle {
+  display: inline-block;
+  font-size: 14pt;
+  font-weight: 700;
+  margin: 1em;
+  color: #fff;
+  cursor: pointer;
+}
+
+#toggle-log:checked ~ #signup, #toggle-sign:checked ~ #login {
+  background: #c9dfec;
+  z-index: 0;
+  
+  animation: signup-out .3s cubic-bezier(0,1.5,.66,1.2) both;
+  
+  & * { opacity: 0; pointer-events: none; }
+}
+#toggle-sign:checked ~ #login {
+  transform: translate(-65%, -45%) scale(0.9);
+  animation-name: login-out;
+}
+
+@keyframes signup-in {
+  0% { transform: translate(-35%,-45%) scale(0.8) }
+  100% { transform: translate(-35%,-50%) scale(1) }
+}
+@keyframes signup-out {
+  0% { transform: translate(-35%,-50%) scale(1) }
+  100% { transform: translate(-35%, -45%) scale(0.8) }
+}
+@keyframes login-in {
+  0% { transform: translate(-65%, -45%) scale(0.9) }
+  100% { transform: translate(-65%,-50%) scale(1) }
+}
+@keyframes login-out {
+  0% { transform: translate(-65%,-50%) scale(1); }
+  100% { transform: translate(-65%, -45%) scale(0.9) }
+}

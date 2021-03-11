@@ -1,0 +1,125 @@
+<link rel="stylesheet" type="text/css" href="css/login1.css">
+<script>
+    const token = localStorage.getItem('jwt');
+        if(token){
+            window.location.href = '/';
+        }
+</script>
+
+<style>
+body {
+  background-image: url('https://bnetcmsus-a.akamaihd.net/cms/content_entry_media/FJPT5455KR5K1589912863345.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+</style>
+
+<div class="label-container">
+  <label for="toggle-log" class="toggle">Login</label>
+  <label for="toggle-sign" class="toggle">Sign up</label>
+</div>
+
+<div class="container">  
+  <input type="radio" name="toggles" id="toggle-log" class="toggle" checked="checked" />
+  <input type="radio" name="toggles" id="toggle-sign" class="toggle" />
+  
+  <div class="panel" id="login">
+    <label for="log-email">Email</label>
+    <input id="log-email" />
+    <label for="log-pass">Password</label>
+    <input type="password" id="log-pass" />
+
+    <button type="submit" id="login-form-button">Login</button>
+  </div>
+
+  <div class="panel" id="signup">
+    <label for="sign-email">Email</label>
+    <input id="sign-email" />
+    <label for="sign-pass">Password</label>
+    <input type="password" id="sign-pass" />
+    <!--
+    <label for="sign-confirm">Confirm password</label>
+    <input type="password" id="sign-confirm" />
+    -->
+
+    <button type="submit" id="register-form-button">Sign up</button>
+  </div>
+</div>
+
+
+<script>
+    const registerFormButton = document.querySelector('#register-form-button');
+    const loginFormButton = document.querySelector('#login-form-button');
+    const signPass = document.querySelector('#sign-pass');
+    const logPass = document.querySelector('#log-pass');
+  
+    const register = async (mail, password) => {
+        const response = await fetch('/register', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mail: mail, password: password })
+        });
+        return;
+    };
+  
+    registerFormButton.addEventListener('click', (event) => {
+        event.preventDefault();
+  
+        const mail = document.querySelector('#sign-email').value;
+        const password = document.querySelector('#sign-pass').value;
+  
+        register(mail, password).then(() => {
+            window.location.href = '/';
+        });
+    });
+  
+    // Execute a function when the user releases a key on the keyboard
+    signPass.addEventListener("keyup", function(event) {
+      // Number 13 is the "Enter" key on the keyboard
+      if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        registerFormButton.click();
+      }
+    });
+  
+    const login = async (mail, password) => {
+      const response = await fetch('/login', {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mail: mail, password: password })
+      });
+      const data = await response.json();
+      return data;
+    };
+  
+    loginFormButton.addEventListener('click', (event) => {
+        event.preventDefault();
+  
+        const mail = document.querySelector('#log-email').value;
+        const password = document.querySelector('#log-pass').value;
+  
+        login(mail, password).then(function(data) {
+            if (data.token) {
+                localStorage.setItem('jwt', data.token);
+                window.location.href = '/';
+            } else {
+                console.log(data);
+            }
+        });
+    });
+  
+    // Execute a function when the user releases a key on the keyboard
+    logPass.addEventListener("keyup", function(event) {
+      // Number 13 is the "Enter" key on the keyboard
+      if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        loginFormButton.click();
+      }
+    });
+  </script>

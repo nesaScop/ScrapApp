@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400">
+
+    <script>
+      const token = localStorage.getItem('jwt');
+            if(!token){
+                window.location.href = '/login1';
+            }
+    </script>
+    
+    <title></title>
+    <div class="navigation">
+  
+        <a class="button" href="">
+          <img src="images/dugme.png">
+      
+      <div class="logout" id="izadji">LOGOUT</div>
+    
+        </a>
+      
+    </div>
+    <script>
+      const token = localStorage.getItem('jwt');
+            if(!token){
+                window.location.href = '/login1';
+            }
+    </script>
+
+<script>
+  const logoutButton = document.querySelector('#izadji');
+  logoutButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    localStorage.setItem('jwt', '');
+    window.location.href = '/login1';
+  });
+</script>
+      
+<style>
+
+table.rating {
+    border-spacing: 0;
+    margin: 0;
+    border-collapse: collapse;
+}
+table {
+    height: 540px;
+    width: 37%;
+    border-spacing: 2px;
+    margin: 1.5em 0;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+table th {
+    background: #CCC;
+    color: #000;
+    text-align: left;
+}
+b {
+    font-weight: bold;
+}
+.realm {
+    font-style: italic;
+    font-size: 1.0em;
+    color: #CCCCCC;
+}
+table.rating td {
+    border-bottom: 1px solid #3D3D3D;
+    margin: 0pt;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-left: 0.7em;
+    padding-right: 3px;
+    color: #CCCCCC;
+    background-color: #1C1C1C;
+    font-size: 1em;
+    vertical-align: middle;
+}
+.legendary {
+    color: #FF8000;
+}
+.rank {
+    font-weight: bold;
+}
+.horde {
+    color: #CD2B00;
+}
+.epic {
+    color: #A335EE;
+}
+nobr {
+    white-space: nowrap;
+}
+.ratingProgress {
+    white-space: nowrap;
+}
+body {
+  background-image: url('images/pozadina.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  font-size: 14px;
+  font-family: verdana,arial,sans-serif;
+  padding-bottom: 3em;
+
+}
+table th, table td {
+    padding: 0.3em 0.75em;
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+table.rating {
+    border-spacing: 0;
+    margin: 0;
+    border-collapse: collapse;
+}
+table.rating{
+    margin-left: auto;
+    margin-right: auto;
+}
+table.rating .guild {
+    font-weight: bold;
+}
+table td {
+    background: #333; 
+    color: #FFF;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.navigation {
+  width: 7%;
+  background-color: black;
+  position: relative;
+   top: -16px;
+   right: -1760px;
+}
+
+img {
+  width: 25px;
+  border-radius: 50px;
+  float: left;
+}
+
+.logout {
+  font-size: .8em;
+  font-family: 'Oswald', sans-serif;
+  position: relative;
+  right: -18px;
+  bottom: -4px;
+  overflow: hidden;
+  letter-spacing: 3px;
+  opacity: 0;
+  transition: opacity .45s;
+  -webkit-transition: opacity .35s;
+  
+}
+
+.button {
+  text-decoration: none;
+  float: right;
+  padding: 12px;
+  margin: 15px;
+  color: white;
+  width: 25px;
+  background-color: black;
+  transition: width .35s;
+  -webkit-transition: width .35s;
+  overflow: hidden
+}
+
+a:hover {
+  width: 100px;
+}
+
+a:hover .logout{
+  opacity: .9;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+</style>
+
+</head>
+<body>
+    <table class="rating"></table>
+
+    <script>
+        fetch('/scrape')
+            .then(response => response.json())
+            .then(data => document.querySelector('.rating').innerHTML = data.innerHTML);
+    </script>
+</body>
+</div>
+</html>
